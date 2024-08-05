@@ -10,7 +10,7 @@ const save = async (task) => {
   throw new Error("Not Implemented");
 };
 const update = async (id, task) => {
-  throw new Error("Not Implemented");
+  return API.put(`/task/${id}`, task);
 };
 const deleteById = async (id) => {
   throw new Error("Not Implemented");

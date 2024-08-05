@@ -1,16 +1,24 @@
 <script>
+  import { createEventDispatcher } from "svelte";
+
   export let id;
   export let title;
   export let description;
   export let isComplete;
   export let color;
 
+  const dispatch = createEventDispatcher();
+
   const colorComplete = "#9fcf44";
   const colorIncomplete = "#dd8430";
 
   const toggleTask = () => {
     isComplete = !isComplete;
-    console.log(isComplete);
+    sendTaskToUpdate({ id, isComplete });
+  };
+
+  const sendTaskToUpdate = (task) => {
+    dispatch("updateTask", task);
   };
 </script>
 
@@ -50,12 +58,15 @@
     min-width: 120px;
     height: fit-content;
     background-color: white;
-    transition: padding 0.5s ease;
     cursor: pointer;
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
   }
 
   .task:hover {
-    padding: 15px 25px;
+    transform: translate3d(-5px, -5px, 0);
+    box-shadow: 8px 8px 1px rgba(0, 0, 0, 0.2);
   }
 
   h3 {
