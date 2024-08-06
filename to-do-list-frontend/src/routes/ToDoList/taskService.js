@@ -7,13 +7,13 @@ const getById = async (id) => {
   throw new Error("Not Implemented");
 };
 const save = async (task) => {
-  throw new Error("Not Implemented");
+  return API.post(`/task`, task);
 };
 const update = async (id, task) => {
   return API.put(`/task/${id}`, task);
 };
 const deleteById = async (id) => {
-  throw new Error("Not Implemented");
+  return API.deleteRequest(`/task/${id}`);
 };
 
 const taskService = {

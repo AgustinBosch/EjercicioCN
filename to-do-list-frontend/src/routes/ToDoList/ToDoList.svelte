@@ -4,7 +4,6 @@
   import Task from "./Task.svelte";
   import NewTask from "./NewTask.svelte";
   import taskService from "./taskService";
-  import { accordion } from "./accordion";
 
   const colors = [
     "#a6c7ea",
@@ -48,6 +47,21 @@
   const updateTask = (task) => {
     taskService.update(task.id, task);
   };
+
+  const saveNewTask = async (task) => {
+    newTask = false;
+    let newTaskSaved = await taskService.save(task);
+    allTasks = [...allTasks, newTaskSaved];
+  };
+
+  const deleteTask = async (id) => {
+    try {
+      await taskService.deleteById(id);
+      allTasks = allTasks.filter((t) => t.id !== id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 </script>
 
 <div class="box">
@@ -55,7 +69,7 @@
     Esta es una lista de tareas :D
   </h2>
   <div
-    class="fancy plus"
+    class="fancy plus float"
     style="border-color:{getRandomColor()}"
     on:click={() => {
       newTask = !newTask;
@@ -70,11 +84,11 @@
   </div>
 </div>
 
-<div use:accordion={newTask}>
-  <div transition:fade={{ delay: 250, duration: 300 }}>
-    <NewTask />
-  </div>
-</div>
+<NewTask
+  {newTask}
+  color={getRandomColor()}
+  on:newTask={(e) => saveNewTask(e.detail)}
+/>
 
 <div class="box">
   {#each allTasks as task}
@@ -82,6 +96,7 @@
       {...task}
       color={getRandomColor()}
       on:updateTask={(e) => updateTask(e.detail)}
+      on:deleteTask={(e) => deleteTask(e.detail.id)}
     />
   {/each}
 </div>
@@ -94,19 +109,11 @@
     flex-wrap: wrap;
   }
   .plus {
-    cursor: pointer;
-    transition:
-      transform 0.3s ease,
-      box-shadow 0.3s ease;
-  }
-  .plus:hover {
-    transform: translate3d(-5px, -5px, 0);
-    box-shadow: 8px 8px 1px rgba(0, 0, 0, 0.2);
+    font-size: 50px;
+    line-height: 25px;
   }
   .fancy {
+    margin: 25px 10px;
     padding: 5px 20px;
-    background-color: white;
-    border: 5px solid;
-    border-radius: 10px;
   }
 </style>

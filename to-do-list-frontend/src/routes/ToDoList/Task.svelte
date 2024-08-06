@@ -20,10 +20,14 @@
   const sendTaskToUpdate = (task) => {
     dispatch("updateTask", task);
   };
+  const handleDelete = (e) => {
+    e.stopPropagation();
+    dispatch("deleteTask", {id});
+  };
 </script>
 
 <div
-  class="task"
+  class="task fancy float"
   style="border-color:{color}"
   on:click={toggleTask}
   on:keydown={toggleTask}
@@ -34,11 +38,56 @@
     class="triangle"
     style="--color:{isComplete ? colorComplete : colorIncomplete}"
   ></div>
+  <button
+    type="button"
+    class="delete"
+    style="--color:{color}"
+    on:click={handleDelete}
+  ></button>
   <h3>{title}</h3>
   <span>{description}</span>
 </div>
 
 <style>
+  .delete {
+    width: 25px;
+    height: 25px;
+    background-color: var(--color);
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+  }
+
+  .delete::before,
+  .delete::after {
+    content: "";
+    position: absolute;
+    width: 60%;
+    height: 2px;
+    background-color: white;
+  }
+
+  .delete::before {
+    transform: rotate(45deg);
+  }
+
+  .delete::after {
+    transform: rotate(-45deg);
+  }
+
+  .delete:hover {
+    background-color: #f55;
+  }
+
+  .delete:active {
+    background-color: #f55;
+  }
   .triangle {
     position: absolute;
     top: -0.5px;
@@ -52,21 +101,9 @@
   .task {
     position: relative;
     padding: 5px 15px;
-    border: 5px solid;
-    border-radius: 10px;
     text-align: center;
     min-width: 120px;
     height: fit-content;
-    background-color: white;
-    cursor: pointer;
-    transition:
-      transform 0.3s ease,
-      box-shadow 0.3s ease;
-  }
-
-  .task:hover {
-    transform: translate3d(-5px, -5px, 0);
-    box-shadow: 8px 8px 1px rgba(0, 0, 0, 0.2);
   }
 
   h3 {
