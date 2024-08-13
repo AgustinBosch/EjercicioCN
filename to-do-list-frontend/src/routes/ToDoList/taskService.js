@@ -4,16 +4,16 @@ const getAll = async () => {
   return API.get("/task");
 };
 const getById = async (id) => {
-  throw new Error("Not Implemented");
+  return API.get(`/task/${id}`);
 };
 const save = async (task) => {
-  throw new Error("Not Implemented");
+  return API.post("/task", task);
 };
 const update = async (id, task) => {
-  throw new Error("Not Implemented");
+  return API.put(`/task/${id}`, task);
 };
 const deleteById = async (id) => {
-  throw new Error("Not Implemented");
+  return API.deleteRequest(`/task/${id}`);
 };
 
 const taskService = {
