@@ -4,7 +4,7 @@ const getAll = async () => {
   return API.get("/task");
 };
 const getById = async (id) => {
-  return API.get(`/task/${id}`);
+  throw new Error("Not Implemented");
 };
 const save = async (task) => {
   return API.post("/task", task);
