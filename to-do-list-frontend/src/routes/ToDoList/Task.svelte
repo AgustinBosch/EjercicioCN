@@ -2,30 +2,29 @@
   export let task;
   export let onDelete;
   export let onUpdate;
+  export let index;
+
+  const colors = ["#E6E6FA", "#d5ffd5", "#ADD8E6", "#FFB6C1", "#FFFACD"];
+  const colorClass = colors[index % colors.length]; // Alternar entre los colores
 </script>
 
-<div class="task {task.isComplete ? 'completed' : ''}">
+<div class="task" style="background-color: {task.isComplete ? '#b9b9b9' : colorClass}">
   <h2 class="task_title">{task.title}</h2>
   <p>{task.description}</p>
-  <div class="task_buttons" >
-  {#if !task.isComplete}
-    <button on:click={() => onUpdate(task.id)}>Marcar como realizada</button>
-  {/if}
-  <button on:click={() => onDelete(task.id)}>Eliminar</button>
-</div>
+  <div class="button-container">
+    {#if !task.isComplete}
+      <button class="icon-button" on:click={() => onUpdate(task.id)} title="Marcar como realizada">
+        ✓
+      </button>
+    {/if}
+    <button class="icon-button delete-button" on:click={() => onDelete(task.id)} title="Eliminar tarea">
+      ✖
+    </button>
+  </div>
 </div>
 
 <style>
-  /* Contenedor de las tareas */
-  .task-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 16px;
-    padding: 20px;
-  }
-
   .task {
-    background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
@@ -37,57 +36,38 @@
     overflow: hidden; 
   }
 
-  .task h2 {
-    margin: 0 0 8px;
-    font-size: 1.25rem;
+  .task h2, .task p {
     text-align: center;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
-  .task p {
-    margin: 0 0 16px;
-    color: #666;
-    text-align: center;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  .task_buttons {
+  .button-container {
     display: flex;
-    flex-direction: column;
-  }
-  .task button {
-    background-color: #007bff;
-    border: none;
-    color: white;
-    padding: 8px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.875rem;
+    justify-content: space-between;
     margin-top: auto;
-    transition: background-color 0.3s ease;
-    width: 100%;
   }
 
-
-  .task button:hover {
-    background-color: #0056b3;
+  .icon-button {
+    background-color: transparent;
+    border: none;
+    color: #007bff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
   }
 
-  .completed {
-    background-color: #d4edda;
-    border-color: #c3e6cb;
-    color: #155724;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  .icon-button:hover {
+    color: #0056b3;
   }
 
-  .completed button {
-    background-color: #6c757d;
+  .delete-button {
+    color: #dc3545;
   }
 
-  .completed button:hover {
-    background-color: #5a6268;
+  .delete-button:hover {
+    color: #c82333;
   }
 </style>
+
