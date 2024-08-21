@@ -6,7 +6,7 @@
   let tasks = [];
   let newTaskTitle = "";
   let newTaskDescription = "";
-
+  let editingTaskId = null;
   
 
   onMount(async () => {
@@ -65,20 +65,45 @@
     } catch (error) {
       console.error("Error actualizando la tarea", error);
     }
+    
   };
+  const editTask = (id) => {
+    const taskToEdit = tasks.find(task => task.id === id);
+    if (taskToEdit) {
+      newTaskTitle = taskToEdit.title;
+      newTaskDescription = taskToEdit.description;
+      editingTaskId = id;
+    }
+  };
+  const saveTask = async (id, title, description) => {
+    try {
+      const taskToSave = tasks.find(task => task.id === id);
+      if (taskToSave) {
+        taskToSave.title = title;
+        taskToSave.description = description;
+        await taskService.update(id, taskToSave);
+        await cargarInformacion();
+      }
+    } catch (error) {
+      console.error("Error guardando los cambios en la tarea", error);
+    }
+  };
+
 </script>
 
 <h2>Lista de tareas</h2>
 
 <input class="input-container" type="text" bind:value={newTaskTitle} placeholder="Título de la tarea" />
 <input class="input-container input" type="text" bind:value={newTaskDescription} placeholder="Descripción de la tarea" />
-<button class="input-container button"on:click={addTask}>Añadir Tarea</button>
+<button class="input-container button" on:click={addTask}>
+  {editingTaskId ? 'Actualizar Tarea' : 'Añadir Tarea'}
+</button>
 
 <div class="task-container">
   {#if tasks.length > 0}
-  {#each tasks as task, index (task.id)}
-  <Task {task} {index} onDelete={deleteTask} onUpdate={updateTask} />
-{/each}
+    {#each tasks as task, index (task.id)}
+      <Task {task} {index} onDelete={deleteTask} onUpdate={updateTask} onEdit={editTask} onSave={saveTask} />
+    {/each}
   {:else}
     <p>No hay tareas disponibles.</p>
   {/if}
