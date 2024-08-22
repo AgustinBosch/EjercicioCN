@@ -90,7 +90,7 @@
 <style>
   .task {
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
     display: flex;
@@ -107,6 +107,7 @@
     white-space: normal;
     text-overflow: ellipsis;
     font-family: 'Calligraffitti', cursive;
+    
   }
 
   .task p {

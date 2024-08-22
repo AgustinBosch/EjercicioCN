@@ -177,7 +177,7 @@
   
   .input-boton {
     flex: 1;
-    padding: 10px;
+    padding: 10px,10px,10px;
     font-size: 1rem;
     color: #555;
     text-align: center;
