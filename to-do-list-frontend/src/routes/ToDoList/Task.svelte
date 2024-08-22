@@ -9,8 +9,8 @@
   let editedTitle = task.title;
   let editedDescription = task.description;
 
-  const titleMaxLength = 50; // Límite de caracteres para el título
-  const descriptionMaxLength = 200; // Límite de caracteres para la descripción
+  const titleMaxLength = 50; 
+  const descriptionMaxLength = 200; 
 
   const colors = ["#E6E6FA", "#d5ffd5", "#ADD8E6", "#FFB6C1", "#FFFACD"];
   const colorClass = colors[index % colors.length];
@@ -96,7 +96,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-height: 250px; 
+    min-height: 170px; 
     overflow: hidden;
     word-wrap: break-word;
   }
@@ -106,6 +106,7 @@
     overflow: hidden;
     white-space: normal;
     text-overflow: ellipsis;
+    font-family: 'Calligraffitti', cursive;
   }
 
   .task p {
@@ -138,7 +139,7 @@
     background-color: transparent;
     border: none;
     color: #007bff;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     cursor: pointer;
     transition: color 0.3s ease;
   }
@@ -175,8 +176,4 @@
     color: #ffc107;
   }
 
-  .edit-button[disabled] {
-    color: #ccc;
-    cursor: not-allowed;
-  }
 </style>
