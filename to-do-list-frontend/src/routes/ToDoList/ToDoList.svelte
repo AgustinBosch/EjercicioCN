@@ -13,7 +13,7 @@
   };
 </script>
 
-<h1>Esta es una lista de tasks</h1>
+<h1>Titulo de la ver. nueva</h1>
 
 <div>
   <Task />
