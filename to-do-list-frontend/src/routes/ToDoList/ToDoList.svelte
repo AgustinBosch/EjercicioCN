@@ -13,7 +13,7 @@
   };
 </script>
 
-<h1>Titulo de la ver. nueva</h1>
+<h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perferendis modi blanditiis molestias aperiam, explicabo sequi possimus nemo fugit eaque ipsam voluptatem, optio itaque aliquid rerum? Reprehenderit nemo dolore eius praesentium.</h1>
 
 <div>
   <Task />
