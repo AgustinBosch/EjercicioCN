@@ -13,7 +13,7 @@
   };
 </script>
 
-<h1>Titulo de la ver. nueva</h1>
+<h1>Prueba practica de git</h1>
 
 <div>
   <Task />
