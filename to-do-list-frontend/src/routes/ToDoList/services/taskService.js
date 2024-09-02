@@ -1,4 +1,4 @@
-import API from "../shared/AxiosHelper";
+import API from "../../shared/AxiosHelper";
 
 const getAll = async () => {
   return API.get("/task");

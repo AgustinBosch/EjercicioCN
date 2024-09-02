@@ -1,31 +1,8 @@
 <script>
-  import { onMount } from "svelte";
-  import Task from "./Task.svelte";
-  import taskService from "./taskService";
-
-  let tasks = [];
-  let newTaskTitle = "";
-  let newTaskDescription = "";
-  let editingTaskId = null;
-
-  onMount(async () => {
-    await cargarInformacion();
-  });
-
-  const cargarInformacion = async () => {
-    try {
-      const response = await taskService.getAll();
-
-      if (Array.isArray(response)) {
-        tasks = response;
-      } else {
-        tasks = [];
-      }
-    } catch (error) {
-      console.error("Error cargando las tareas", error);
-      tasks = [];
-    }
-  };
+  import taskService from "../services/taskService";
+  export let newTaskTitle = "";
+  export let newTaskDescription = "";
+  export let cargarInformacion;
 
   const addTask = async () => {
     try {
@@ -35,54 +12,11 @@
       };
       const response = await taskService.save(newTask);
       console.log("Tarea creada:", response);
-      await cargarInformacion();
+      await cargarInformacion(); 
       newTaskTitle = "";
       newTaskDescription = "";
     } catch (error) {
       console.error("Error añadiendo la tarea", error);
-    }
-  };
-
-  const deleteTask = async (id) => {
-    try {
-      await taskService.deleteById(id);
-      await cargarInformacion();
-    } catch (error) {
-      console.error("Error eliminando la tarea", error);
-    }
-  };
-
-  const updateTask = async (id) => {
-    try {
-      const taskToUpdate = tasks.find((task) => task.id === id);
-      if (taskToUpdate) {
-        taskToUpdate.isComplete = true;
-        await taskService.update(id, taskToUpdate);
-        await cargarInformacion();
-      }
-    } catch (error) {
-      console.error("Error actualizando la tarea", error);
-    }
-  };
-  const editTask = (id) => {
-    const taskToEdit = tasks.find((task) => task.id === id);
-    if (taskToEdit) {
-      newTaskTitle = taskToEdit.title;
-      newTaskDescription = taskToEdit.description;
-      editingTaskId = id;
-    }
-  };
-  const saveTask = async (id, title, description) => {
-    try {
-      const taskToSave = tasks.find((task) => task.id === id);
-      if (taskToSave) {
-        taskToSave.title = title;
-        taskToSave.description = description;
-        await taskService.update(id, taskToSave);
-        await cargarInformacion();
-      }
-    } catch (error) {
-      console.error("Error guardando los cambios en la tarea", error);
     }
   };
 </script>
@@ -118,33 +52,10 @@
     </div>
   </div>
 </div>
-<div class="task-container">
-  {#if tasks.length > 0}
-    {#each tasks as task, index (task.id)}
-      <Task
-        {task}
-        {index}
-        onDelete={deleteTask}
-        onUpdate={updateTask}
-        onEdit={editTask}
-        onSave={saveTask}
-      />
-    {/each}
-  {:else}
-    <p>No hay tareas disponibles.</p>
-  {/if}
-</div>
 
 <style>
-  .task-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 30px;
-    padding: 20px;
-    grid-auto-rows: minmax(250px, auto);
-    align-items: start;
-  }
-  .container-encabezado {
+
+.container-encabezado {
     display: flex;
     justify-content: center;
     width: 100%;
@@ -155,7 +66,7 @@
     width: 100%;
     font-family: "Calligraffitti", cursive;
     font-weight: 700;
-    font-size: 2.5rem;
+    font-size: 2rem;
     text-shadow: -15px 5px 20px #ced0d3;
     top: 50%;
     left: 50%;
@@ -168,19 +79,21 @@
       7px 9px 0px #90b1e0;
   }
 
-  .input-container {
+    .input-container {
     gap: 10px;
     padding: 30px;
-    width: 100%;
+    width: 80%;
+    font-size: 5px;
     font-family: "Calligraffitti", cursive;
+    margin-right: 10rem;
   }
   
   .input-boton {
     flex: 1;
     padding: 10px,10px,10px;
-    font-size: 1rem;
+    font-size: 0,5rem;
     color: #555;
-    text-align: center;
+    text-align: right;
   }
   .input-descripcion {
     background: transparent;

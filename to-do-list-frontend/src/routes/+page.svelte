@@ -1,4 +1,4 @@
 <script>
-  import ToDoList from "./ToDoList/ToDoList.svelte";
+  import ToDoList from "./ToDoList/components/ToDoList.svelte";
 </script>
 <ToDoList />
