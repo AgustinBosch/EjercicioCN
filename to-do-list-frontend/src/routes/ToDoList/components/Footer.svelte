@@ -21,44 +21,45 @@
   <style>
     .footer {
       background-color: #54a6ff; 
-      color: white;
-      padding: 20px;
+      color: white; 
+      padding: 20px; 
       text-align: center;
       font-family: "Calligraffitti", cursive;
-      
-      position: fixed;
-      width: 100%;
-      bottom: 0;
+      box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); 
+      position: fixed; 
+      bottom: 0; 
+      left: 0; 
+      width: 100%; 
+      z-index: 1000; 
     }
   
     .footer-content {
-      display: flex;
+      display: flex; 
       flex-direction: column;
-      align-items: center;
-     
+      align-items: center; 
+      gap: 10px; 
     }
   
     .social-links {
-      display: flex;
-      gap: 20px;
+      display: flex; 
+      gap: 20px; 
     }
   
     .social-links a {
       color: white;
-      text-decoration: none;
-      font-size: 1rem;
-      display: flex;
+      text-decoration: none; 
+      font-size: 1rem; 
+      display: flex; 
       align-items: center;
     }
   
     .social-links a:hover {
-      color: #0056b3;
+      color: #0056b3; 
     }
   
     .icon {
       width: 20px;
-      height: 20px;
-      margin-right: 8px;
+      height: 20px; 
+      margin-right: 8px; 
     }
   </style>
-  

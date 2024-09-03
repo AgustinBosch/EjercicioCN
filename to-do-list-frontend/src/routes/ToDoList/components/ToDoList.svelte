@@ -93,7 +93,6 @@
     <p>No hay tareas disponibles.</p>
   {/if}
 </div>
-<Footer />
 
 <style>
   .task-container {
@@ -104,6 +103,6 @@
     grid-auto-rows: minmax(250px, auto);
     align-items: start;
   }
-
+  
 
 </style>
